@@ -5,9 +5,16 @@
 
  class Phrase {
     constructor (phrase) {
-        this.phrase = phrase;
+        
 
+    }
 
+    get phrase() {
+        return this._phrase;
+    }
+
+    set phrase(phrase) {
+        return this._phrase = phrase.toLowerCase();
     }
 
     addPhraseToDisplay() {
