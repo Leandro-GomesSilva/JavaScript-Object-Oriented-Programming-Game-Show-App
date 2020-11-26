@@ -14,3 +14,6 @@ button.addEventListener('click', () => {
     game.startGame();
 
 }); 
+
+const phrase = new Phrase('testando ssss');
+phrase.addPhraseToDisplay();
