@@ -12,8 +12,5 @@ const button = document.getElementById("btn__reset");
 button.addEventListener('click', () => {
     const game = new Game();
     game.startGame();
-
 }); 
 
-const phrase = new Phrase('testando ssss');
-phrase.addPhraseToDisplay();
