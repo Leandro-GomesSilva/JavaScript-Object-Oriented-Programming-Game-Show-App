@@ -10,7 +10,14 @@ class Phrase {
 
 
     /**
-    * Displays phrase on the screen
+    * 'addPhraseToDisplay' method
+    * 
+    *   1. Selects the DOM element with the "phrase" ID
+    *   2. Selects its first child, the 'ul' element
+    *   3. Splits the phrase in this class to single characters
+    *   4. Iterate through the characters and creates the corresponding 'li' elements
+    *   4. Appends the li elements to the 'ul' that was selected in the step 2
+    * 
     */
     addPhraseToDisplay() {
         const divPhrase = document.getElementById("phrase");
@@ -26,14 +33,35 @@ class Phrase {
         });
     }
 
-    checkLetter() {
-
-
+    /**
+    * 'checkLetter' method
+    * 
+    *   1. Uses the spread operator to split the phrase property into single chars
+    *   2. Uses the 'includes' method to check if 'letter' is in the phrase and returns true or false
+    * 
+    * @param {string} letter - The letter to be checked
+    * @return {boolean} True or false
+    * 
+    */
+    checkLetter(letter) {
+        return [...this.phrase].includes(letter);
     }
 
-    showMatchedLetter() {
-
-        
+    /**
+    * 'showMatchedLetter' method
+    * 
+    *   1. Select all DOM elements with the 'hide' class name that matches the letter
+    *   2. Replaces the 'hide' class name with the 'show' class name
+    * 
+    * @param {string} letter - The letter to be displayed
+    * 
+    */   
+    showMatchedLetter(letter) {
+        const liElements = document.getElementsByClassName(`hide letter ${letter}`);
+        console.log(typeof liElements);
+        liElements.forEach( liElement => {
+            liElement.className = `show letter ${letter}`;
+        });
     }
 
  }
