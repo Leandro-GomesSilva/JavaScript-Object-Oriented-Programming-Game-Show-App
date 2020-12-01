@@ -50,18 +50,19 @@ class Phrase {
     /**
     * 'showMatchedLetter' method
     * 
-    *   1. Select all DOM elements with the 'hide' class name that matches the letter
-    *   2. Replaces the 'hide' class name with the 'show' class name
+    *   1. Selects all DOM elements with the class name that matches the letter
+    *   2. Replaces the 'hide' class name with the 'show' class for each DOM element selected
     * 
     * @param {string} letter - The letter to be displayed
     * 
     */   
-    showMatchedLetter(letter) {
-        const liElements = document.getElementsByClassName(`hide letter ${letter}`);
-        console.log(typeof liElements);
-        liElements.forEach( liElement => {
-            liElement.className = `show letter ${letter}`;
-        });
+    showMatchedLetter(letter) {      
+        const liElements = document.getElementsByClassName(`letter ${letter}`);
+        
+        for (const element of liElements) {
+            element.classList.add("show");
+            element.classList.remove("hide");
+        };
     }
 
  }
