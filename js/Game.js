@@ -77,10 +77,12 @@ class Game {
     * 'checkForWin' method
     * 
     *   1. Selects the 'ul' element (the first element child of the DOM element with the 'phrase' ID)
-    *   2. Selects all the elements with the class name 'hide'
-    *   3. Checks the length of this HTML colection: if it is 0, there is no hiding letter leftis any class called 'hide' among the children of 'ul' and returns true or false accordingly
+    *   2. Selects all the elements with the class name 'hide' and checks the length of this HTML colection: 
+    *       a. if the length is 0, there is no hiding letter left: the game has been won
+    *       b. if the length is not 0, there are still DOM elements with the "hide" class: the game has not been won
+    *   3. Returns true or false accordingly
     * 
-    * @return {boolean} True if the game was won, false if it was not
+    * @return {boolean} True or false, depending if the game has been won or not
     * 
     */
     checkForWin() {
