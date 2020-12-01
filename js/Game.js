@@ -73,9 +73,22 @@ class Game {
         
     }
 
+    /**
+    * 'checkForWin' method
+    * 
+    *   1. Selects the 'ul' element (the first element child of the DOM element with the 'phrase' ID)
+    *   2. Selects all the elements with the class name 'hide'
+    *   3. Checks the length of this HTML colection: if it is 0, there is no hiding letter leftis any class called 'hide' among the children of 'ul' and returns true or false accordingly
+    * 
+    * @return {boolean} True if the game was won, false if it was not
+    * 
+    */
     checkForWin() {
+        const ulElement = document.getElementById("phrase").firstElementChild;
 
-        
+        if ( ulElement.getElementsByClassName("hide").length === 0) {
+            return true;
+        } else return false;            
     }
 
     gameOver() {

@@ -13,7 +13,7 @@ class Phrase {
     * 'addPhraseToDisplay' method
     * 
     *   1. Selects the DOM element with the "phrase" ID
-    *   2. Selects its first child, the 'ul' element
+    *   2. Selects its first element child, the 'ul' element
     *   3. Splits the phrase in this class to single characters
     *   4. Iterate through the characters and creates the corresponding 'li' elements
     *   4. Appends the li elements to the 'ul' that was selected in the step 2
