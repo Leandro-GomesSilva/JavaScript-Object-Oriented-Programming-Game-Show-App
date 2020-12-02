@@ -68,18 +68,37 @@ class Game {
         
     }
 
+    /**
+    * 'removeLife' method
+    * 
+    *   1. Increments the property "missed" by 1
+    *   2. Changes the full heart pic most to the right to an empty heart, by doing the following:
+    *       a. Selects all 'li' elements under the 'div' with ID 'scoreboard'
+    *       b. Selects the last 'img' element that is still a full heart
+    *       c. Modifies the 'source' property of this 'img' element
+    *   3. Checks if the number of misses is equal to the number of 'li' elements i.e. hearts. 
+    *       => If yes, calls the "gameOver" method with the parameter "false", which represents a lost
+    * 
+    */
     removeLife() {
+        this.missed += 1;
 
-        
+        const liElements = document.getElementById("scoreboard").getElementsByTagName("li");
+        const imgToModify = liElements[liElements.length - this.missed].firstElementChild;
+        imgToModify.src = "images/lostHeart.png";
+
+        if (liElements.length === this.missed) {
+            this.gameOver(false);
+        }
     }
 
     /**
     * 'checkForWin' method
     * 
     *   1. Selects the 'ul' element (the first element child of the DOM element with the 'phrase' ID)
-    *   2. Selects all the elements with the class name 'hide' and checks the length of this HTML colection: 
-    *       a. if the length is 0, there is no hiding letter left: the game has been won
-    *       b. if the length is not 0, there are still DOM elements with the "hide" class: the game has not been won
+    *   2. Selects all the elements with the class name 'hide' under the 'ul' element and checks the length of this HTML colection: 
+    *       a. if the length is 0, there is no hiding letter left => the game has been won
+    *       b. if the length is not 0, there are still DOM elements with the "hide" class => the game has not been won
     *   3. Returns true or false accordingly
     * 
     * @return {boolean} True or false, depending if the game has been won or not
@@ -88,13 +107,35 @@ class Game {
     checkForWin() {
         const ulElement = document.getElementById("phrase").firstElementChild;
 
-        if ( ulElement.getElementsByClassName("hide").length === 0) {
-            return true;
-        } else return false;            
+        const gameWon = ulElement.getElementsByClassName("hide").length === 0 ? true : false;
+        return gameWon;
     }
 
-    gameOver() {
+    /**
+    * 'gameOver' method
+    * 
+    *   1. Displays the original start screen overlay by selecting the 'div' element with the 'overlay' ID
+    *   2. Tests if the game has been won or lost:
+    *       a. Selects the 'h1' element with the ID 'game-over-message' and changes its text accordingly to the game's outcome
+    *       b. Changes the class of the 'div' element with the 'overlay' ID accordingly to the game's outcome
+    * 
+    * @param {boolean} gameWon - Boolean value representing if the game has been won or lost (true for won)
+    * 
+    */
+    gameOver(gameWon) {
+        const overlay = document.getElementById("overlay");
+        overlay.style.display = "inherit";
 
-        
+        const h1 = document.getElementById("game-over-message");
+
+        if (gameWon) {
+            h1.innerText = "Congratulations, you nailed it!"
+            overlay.classList.add("win");
+            overlay.classList.remove("start");
+        } else {
+            h1.innerText = "Try again!"
+            overlay.classList.add("lose");
+            overlay.classList.remove("start");
+        }        
     }
  }
