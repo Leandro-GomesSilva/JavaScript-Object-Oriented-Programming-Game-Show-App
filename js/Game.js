@@ -62,10 +62,29 @@ class Game {
         this.activePhrase.addPhraseToDisplay();
     }
 
-
-    handleInteraction() {
-
+    /**
+    * 'handleInteraction' method
+    * 
+    *   1. Selects the DOM element with the 'overlay' ID
+    *   2. Hides the overlay that covers the game
+    * 
+    * @param {HTML Button Element} button - The clicked button element
+    * 
+    */
+    handleInteraction(button) {
         
+        button.disabled = true;
+
+        if ( this.activePhrase.checkLetter(button.textContent) ) {
+            button.className = "chosen";
+            this.activePhrase.showMatchedLetter(button.textContent);
+            if ( this.checkForWin() ) {
+                this.gameOver(true);
+            }
+        } else {
+            button.className = "wrong";
+            this.removeLife();
+        }
     }
 
     /**
