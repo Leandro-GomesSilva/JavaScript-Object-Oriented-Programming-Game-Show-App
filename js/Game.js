@@ -70,7 +70,7 @@ class Game {
     *       a. True
     *           I - adds the class 'chosen' to the button element
     *           II - calls the "showMatchedLetter" method
-    *           III - uses an "short-circuit-evaluation" of AND to call the method 'gameOver' with 'true' as parameter, in case the 'checkForWin' method returns TRUE
+    *           III - uses a short-circuit-evaluation of AND to call the method 'gameOver' with 'true' as parameter, in case the 'checkForWin' method returns TRUE
     *       b. False
     *           I - adds the class 'wrong' to the button element
     *           II - calls the 'removeLife' method
@@ -104,7 +104,7 @@ class Game {
     *       a. Selects all 'li' elements under the 'div' with ID 'scoreboard'
     *       b. Selects the last 'img' element that is still a full heart
     *       c. Modifies the 'source' property of this 'img' element
-    *   3. Uses an "short-circuit-evaluation" of AND to call the method 'gameOver' with 'false' as parameter, in case the number of 'li' elements (i.e. hearts) is equal to the number of misses
+    *   3. Uses a short-circuit-evaluation of AND to call the method 'gameOver' with 'false' as parameter, in case the number of 'li' elements (i.e. hearts) is equal to the number of misses
     * 
     */
     removeLife() {
