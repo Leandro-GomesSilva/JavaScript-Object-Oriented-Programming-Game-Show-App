@@ -65,10 +65,18 @@ class Game {
     /**
     * 'handleInteraction' method
     * 
-    *   1. Selects the DOM element with the 'overlay' ID
-    *   2. Hides the overlay that covers the game
+    *   1. Disables the clicked button
+    *   2. If the 'checkLetter' method returns:
+    *       a. True
+    *           I - adds the class 'chosen' to the button element
+    *           II - calls the "showMatchedLetter" method
+    *           III - uses an "short-circuit-evaluation" of AND to call the method 'gameOver' with 'true' as parameter, in case the 'checkForWin' method returns TRUE
+    *       b. False
+    *           I - adds the class 'wrong' to the button element
+    *           II - calls the 'removeLife' method
     * 
-    * @param {HTML Button Element} button - The clicked button element
+    * 
+    * @param {HTML Button Element} button - The clicked HTML button element
     * 
     */
     handleInteraction(button) {
@@ -76,13 +84,14 @@ class Game {
         button.disabled = true;
 
         if ( this.activePhrase.checkLetter(button.textContent) ) {
-            button.className = "chosen";
+
+            button.classList.add("chosen");
             this.activePhrase.showMatchedLetter(button.textContent);
-            if ( this.checkForWin() ) {
-                this.gameOver(true);
-            }
+            this.checkForWin() && this.gameOver(true);
+
         } else {
-            button.className = "wrong";
+            
+            button.classList.add("wrong");
             this.removeLife();
         }
     }
@@ -95,8 +104,7 @@ class Game {
     *       a. Selects all 'li' elements under the 'div' with ID 'scoreboard'
     *       b. Selects the last 'img' element that is still a full heart
     *       c. Modifies the 'source' property of this 'img' element
-    *   3. Checks if the number of misses is equal to the number of 'li' elements i.e. hearts. 
-    *       => If yes, calls the "gameOver" method with the parameter "false", which represents a lost
+    *   3. Uses an "short-circuit-evaluation" of AND to call the method 'gameOver' with 'false' as parameter, in case the number of 'li' elements (i.e. hearts) is equal to the number of misses
     * 
     */
     removeLife() {
@@ -106,9 +114,7 @@ class Game {
         const imgToModify = liElements[liElements.length - this.missed].firstElementChild;
         imgToModify.src = "images/lostHeart.png";
 
-        if (liElements.length === this.missed) {
-            this.gameOver(false);
-        }
+        liElements.length === this.missed && this.gameOver(false);
     }
 
     /**
