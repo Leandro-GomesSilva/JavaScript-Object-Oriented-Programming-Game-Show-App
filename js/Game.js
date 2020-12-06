@@ -25,8 +25,8 @@ class Game {
         arrayPhrases[0] = new Phrase(`I love JavaScript`);
         arrayPhrases[1] = new Phrase(`Strive for greatness`);
         arrayPhrases[2] = new Phrase(`We are what we think`);
-        arrayPhrases[3] = new Phrase(`Well begun is half done`);
-        arrayPhrases[4] = new Phrase(`Failure is success in progress`);
+        arrayPhrases[3] = new Phrase(`Now or Never`);
+        arrayPhrases[4] = new Phrase(`Hello World`);
 
         return arrayPhrases;
     }

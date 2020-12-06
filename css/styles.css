@@ -4,10 +4,10 @@
 /* Variables */
 
 :root {
-  --color-win: #78CF82;
-  --color-lose: #D94545;
-  --color-start: #5b85b7;
-  --color-neutral: #445069;
+  --color-win: #135805;     /* This color has been changed */
+  --color-lose: #990404;    /* This color has been changed */
+  --color-start: #5b85b7;   
+  --color-neutral: #445069; 
   --color-neutral-light: #D2D2D2;
   --color-keys: #37474F;
   --color-keys-light: #E5E5E5;
@@ -196,9 +196,98 @@ button {
 }
 
 .lose {
-  background-color: #f5785f;
+  background-color: #990404;  /* This color has been changed */
 }
 
 .lose a {
   color: var(--color-lose);
+}
+
+
+/* My own CSS code for exceeding expectations */
+
+/* Sentence under "Phrase Hunter" to indicate the Game Mode */
+h3 {
+  font-size: var(--font-size-medium);
+  margin: 0 auto;
+  color: #2d409c;
+}
+
+/* New classes used in the screen overlay */
+.flex-container {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  background-color: rgba(173, 216, 230, 0.432);
+  max-width: 600px;
+  margin: 15px auto;
+  padding: 20px;
+}
+
+.flex-item {
+  max-width: 600px;
+  color: rgb(12, 17, 61);
+  margin: 15px auto;
+}
+
+.flex-item + .flex-item {
+  margin-top: 10px;
+}
+
+/* Input text field for the Player 1 */
+#PhrasePlayer1 {
+  height: 32px;
+  color: black;
+}
+
+/* When the Multiplayer div is active */
+.clicked {
+  background-color: grey;
+  color: white;
+}
+
+/* Adding some effects to the buttons on hover */
+
+button:not(.key):hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
+  transition-duration: 0.3s;
+  background-color: #2098D1;
+  color: white;
+}
+
+#btn__multiplayer:hover {
+  background-color: #048a8a;
+}
+
+#btn__startMultiplayer:hover {
+  background-color: #cabf26;
+}
+
+.key:not(.wrong):not(.chosen):hover, .key:not(.wrong):not(.chosen):focus {
+  transform: scale(1.3);
+  transition-duration: 0.1s;
+  background-color: #6d7174;
+  color: white;
+}
+
+.key.wrong:hover {
+  transform: scale(1.1);
+  background-color: #d13b20;
+  color: white;
+}
+
+.key.chosen:hover {
+  transform: scale(1.1);
+  background-color: #0c5f43;
+  color: white;
+}
+
+/* Adding a float effect to the hearts */
+
+.tries img:hover {
+  transform: translateY(-10px);
+  transition-duration: .3s;
 }

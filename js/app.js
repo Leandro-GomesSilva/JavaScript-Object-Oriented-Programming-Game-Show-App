@@ -8,6 +8,10 @@
 const game = new Game();
 let betweenGames = false;
 
+const h3GameMode = document.createElement("h3");
+document.getElementById("banner").appendChild(h3GameMode);
+
+
  /**
   * Adding an Event Listener to the Start Game button. 
   * In the callback function, a short-circuit-evaluation of AND is used to call the function 'resetGameboard' if betweenGames is 'true' 
@@ -17,6 +21,8 @@ let betweenGames = false;
 const button = document.getElementById("btn__reset");
 button.addEventListener('click', () => {
     
+    h3GameMode.innerText = "Single-player mode";
+
     betweenGames && resetGameboard();
     game.startGame();
     betweenGames = true;
@@ -106,3 +112,86 @@ document.addEventListener('keydown', (e) => {
         }
     }
 }); 
+
+
+/**
+ * 
+ * Making the project my own
+ * 
+ */
+
+// Multiplayer functionalities
+
+    // Adding a multiplayer button for the multiplayer mode
+const multiplayerButton = document.createElement("button");
+multiplayerButton.id = "btn__multiplayer";
+multiplayerButton.innerText = "Multiplayer";
+multiplayerButton.style.width = "200px";
+multiplayerButton.style.margin = "10px auto 0px";
+overlay.appendChild(multiplayerButton);
+
+    // Multiplayer's div
+const divMultiplayer = document.createElement("div");
+divMultiplayer.className = "flex-container";
+divMultiplayer.style.display = "none";
+overlay.appendChild(divMultiplayer);
+
+    // h3 element for the instruction message for the Multiplayer mode
+const divMessage = document.createElement("h3");
+divMessage.innerText = "Player 1 is now playing...";
+divMessage.className = "flex-item";
+divMultiplayer.appendChild(divMessage);
+
+    // Label for the input box for Player 1
+const labelInputPlayer1 = document.createElement("label");
+labelInputPlayer1.htmlFor = "PhrasePlayer1";
+labelInputPlayer1.innerText = `Enter the phrase to be hunted below.\nCover the keyboard from Player 2.`;
+labelInputPlayer1.className = "flex-item";
+divMultiplayer.appendChild(labelInputPlayer1);
+
+    // Input box for Player 1
+const inputPlayer1 = document.createElement("input");
+inputPlayer1.className = "flex-item";
+inputPlayer1.type = "text";
+inputPlayer1.id = "PhrasePlayer1";
+divMultiplayer.appendChild(inputPlayer1);
+
+    // Adding one more button, to start multiplayer mode
+const startMultiplayerButton = document.createElement("button");
+startMultiplayerButton.id = "btn__startMultiplayer";
+startMultiplayerButton.innerText = "Ready!";
+startMultiplayerButton.style.width = "200px";
+startMultiplayerButton.style.margin = "10px auto 0px";
+divMultiplayer.appendChild(startMultiplayerButton);
+
+    // Event listener for both buttons
+multiplayerButton.addEventListener('click', () => {
+    
+    if (divMultiplayer.style.display === "none") {
+        divMultiplayer.style.display = "inherit";
+        multiplayerButton.className = "clicked";
+    } else {
+        divMultiplayer.style.display = "none";
+        multiplayerButton.className = "";
+    } 
+})
+
+startMultiplayerButton.addEventListener('click', () => {
+    
+    betweenGames && resetGameboard();
+       
+    h3GameMode.innerText = "Multiplayer mode - Player 2 is playing";
+    overlay.style.display = "none";
+    game.activePhrase = new Phrase( inputPlayer1.value.replace(/[^a-zA-Z\s]/g, "") );
+    game.activePhrase.addPhraseToDisplay();
+
+    betweenGames = true;
+
+    divMultiplayer.style.display = "none";
+    multiplayerButton.className = "";
+    inputPlayer1.value = "";
+});
+ 
+
+
+
