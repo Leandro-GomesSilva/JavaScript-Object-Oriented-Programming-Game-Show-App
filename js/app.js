@@ -94,14 +94,14 @@ function resetGameboard() {
   * 
   */
 
-const allKeys = qwerty.getElementsByClassName("key");
+const allButtons = qwerty.getElementsByClassName("key");
 
 document.addEventListener('keydown', (e) => {
     
     if (overlay.style.display === "none") {
-        for (const key of allKeys) {
-            if (key.innerText === e.key && key.disabled === false) {
-                game.handleInteraction(key);
+        for (const button of allButtons) {
+            if (button.innerText === e.key && button.disabled === false) {
+                game.handleInteraction(button);
             }
         }
     }
