@@ -79,3 +79,30 @@ function resetGameboard() {
 
     return;
 }
+
+ /*********** For extra credit ***********/
+
+ /**
+  * Adding keyboard functionality:
+  *     1. Select all qwerty button elements
+  *     2. Adds an event listener that listens for a 'keydown' event
+  *     3. Loops through all qwerty button elements => compares its inner text to the pressed button on the physical keyboard and checks if the button element is NOT disabled
+  *     4. For the matching button (in case it is NOT disabled), calls the 'handleInteraction' method passing the corresponding HTML button element as parameter
+  * 
+  *     The steps 3 and 4 are surrounded by an 'if' statement that prevents these code lines from running,
+  *     in case the game is not "active", i.e. the start screen overlay display property is not set to "none"
+  * 
+  */
+
+const allKeys = qwerty.getElementsByClassName("key");
+
+document.addEventListener('keydown', (e) => {
+    
+    if (overlay.style.display === "none") {
+        for (const key of allKeys) {
+            if (key.innerText === e.key && key.disabled === false) {
+                game.handleInteraction(key);
+            }
+        }
+    }
+}); 
