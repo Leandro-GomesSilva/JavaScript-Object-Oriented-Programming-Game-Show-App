@@ -8,6 +8,7 @@ class Game {
         this.missed = 0;
         this.phrases = this.createPhrases();
         this.activePhrase = null;
+        this.betweenGames = false;          // Extra property to handle the transition between games
     }
 
     /**
@@ -48,16 +49,16 @@ class Game {
     /**
     * 'startGame' method
     * 
-    *   1. Selects the DOM element with the 'overlay' ID
-    *   2. Hides the overlay that covers the game
+    *   1. Sets the 'betweenGames' property to 'true'
+    *   2. Hides the overlay that covers the game ('overlay' is a global variable)
     *   3. Selects a random phrase using the getRandomPhrase method and stores it in the property activePhrase
-    *   4. Display the random phrase in the display using the addPhraseToDisplay method
+    *   4. Display the random phrase in the screen using the addPhraseToDisplay method
     * 
     */
     startGame() {
-        const overlay = document.getElementById("overlay");
-        overlay.style.display = "none";
         
+        this.betweenGames = true;
+        overlay.style.display = "none";
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
     }
@@ -65,7 +66,7 @@ class Game {
     /**
     * 'handleInteraction' method
     * 
-    *   1. Disables the clicked button
+    *   1. Disables the clicked button ('button' is a global variable)
     *   2. If the 'checkLetter' method returns:
     *       a. True
     *           I - adds the class 'chosen' to the button element
@@ -139,16 +140,15 @@ class Game {
     /**
     * 'gameOver' method
     * 
-    *   1. Displays the original start screen overlay by selecting the 'div' element with the 'overlay' ID
+    *   1. Displays the original start screen overlay ('overlay' is a global variable)
     *   2. Tests if the game has been won or lost:
     *       a. Selects the 'h1' element with the ID 'game-over-message' and changes its text accordingly to the game's outcome
-    *       b. Changes the class of the 'div' element with the 'overlay' ID accordingly to the game's outcome
+    *       b. Changes the class of the 'div' element 'overlay' accordingly to the game's outcome
     * 
     * @param {boolean} gameWon - Boolean value representing if the game has been won or lost (true for won)
     * 
     */
     gameOver(gameWon) {
-        const overlay = document.getElementById("overlay");
         overlay.style.display = "inherit";
 
         const h1 = document.getElementById("game-over-message");
@@ -162,5 +162,70 @@ class Game {
             overlay.classList.add("lose");
             overlay.classList.remove("start");
         }        
+    }
+
+    /**
+    * 'resetGameboard' method
+    * 
+    *   1. Selects the 'ul' element of the div with ID 'phrase' and removes everything inside it
+    *   2. Selects all elements with the classes "key" and "chosen". For each of these elements, removes the class "chosen" and sets the property "disabled" to false ('qwerty' is a global variable)
+    *   3. Repeats the equivalent of the process in step 2 for all elements with the classes "key" and "wrong"
+    *   4. Sets the property "missed" of the game of object back to 0
+    *   5. Selects all 'li' elements corresponding to the heart pictures, selects the corresponding 'img' element and sets its source to the 'Live Heart' pic
+    *   6. Sets the class of the 'div' element 'overlay' to "start", so that the code at 'gameOver' method is kept consistent ('overlay' is a global variable)
+    * 
+    */
+    resetGameboard() {
+        
+        const ul = document.getElementById("phrase").firstElementChild;
+        ul.innerHTML = "";
+        
+        const chosenKeys = qwerty.querySelectorAll(".key.chosen");
+        chosenKeys.forEach( key => {
+            key.disabled = false;
+            key.classList.remove("chosen");
+        });
+
+        const wrongKeys = qwerty.querySelectorAll(".key.wrong");
+        wrongKeys.forEach( key => {
+            key.disabled = false;
+            key.classList.remove("wrong");
+        });
+
+        game.missed = 0;
+
+        const allHeartElements = document.getElementById("scoreboard").getElementsByTagName("li");
+        for (const liElement of allHeartElements) {
+            const imgElement = liElement.firstElementChild;
+            imgElement.src = "images/liveHeart.png";
+        }
+        
+        overlay.className = "start";
+    }
+
+    /**
+    * 'startMultiplayerGame' method
+    * 
+    *   1. Sets the 'betweenGames' property to 'true'
+    *   2. Hides the overlay that covers the game ('overlay' is a global variable)
+    *   3. Creates a new instance of the Phrase object passing the string (value) of the input box (global variable) as parameter
+    *       a. The method 'replace' is applied to the string value. It passes as parameter a regex that excludes everything, except letters and spaces, from the input string
+    *   4. Displays the phrase of the Player 1 in the screen using the addPhraseToDisplay method
+    *   5. Clears the input field element, hides the multiplayer and resets the state of the Multiplayer button (all these variables are global variables declared at app.js)
+    * 
+    */
+    startMultiplayerGame() {
+        
+        this.betweenGames = true;
+        
+        overlay.style.display = "none";
+
+        this.activePhrase = new Phrase( inputPlayer1.value.replace(/[^a-zA-Z\s]/g, "") );
+        
+        this.activePhrase.addPhraseToDisplay();
+
+        divMultiplayer.style.display = "none";
+        multiplayerOverlayButton.className = "";
+        inputPlayer1.value = "";
     }
  }

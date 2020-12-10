@@ -3,10 +3,17 @@
  * app.js */
 
 
- // Creating a new game object via the Game class and defining a variable "betweenGames" with false
+ // Declaring global variables, which will be used across all classes and in app.js
+
+ const button = document.getElementById("btn__reset");      // Button Element to start game
+ const qwerty = document.getElementById("qwerty");          // Div element for the Virtual keyboard
+ const allButtons = qwerty.getElementsByClassName("key");   // Live HTML Colection of all 'keys' of the Virtual Keyboard
+ const overlay = document.getElementById("overlay");        // Div element for the start overlay
+
+ 
+ // Creating a new game object via the Game class
 
 const game = new Game();
-let betweenGames = false;
 
 const h3GameMode = document.createElement("h3");
 document.getElementById("banner").appendChild(h3GameMode);
@@ -14,18 +21,18 @@ document.getElementById("banner").appendChild(h3GameMode);
 
  /**
   * Adding an Event Listener to the Start Game button. 
-  * In the callback function, a short-circuit-evaluation of AND is used to call the function 'resetGameboard' if betweenGames is 'true' 
-  * Finally, calls the startGame() method and sets betweenGames to 'true'
+  * In the callback function:
+  *     1- The 'h3' element is changed to indicate the single-player mode
+  *     2- A short-circuit-evaluation of AND is used to call the function 'resetGameboard' if the property 'betweenGames' of the 'Game' object is 'true' 
+  *     3- Finally, calls the startGame() method
+  * 
   */
 
-const button = document.getElementById("btn__reset");
 button.addEventListener('click', () => {
     
     h3GameMode.innerText = "Single-player mode";
-
-    betweenGames && resetGameboard();
+    game.betweenGames && game.resetGameboard();
     game.startGame();
-    betweenGames = true;
 }); 
 
  /**
@@ -35,57 +42,13 @@ button.addEventListener('click', () => {
   * 
   */
 
-const qwerty = document.getElementById("qwerty");
 qwerty.addEventListener('click', (e) => {
     if (e.target.tagName == 'BUTTON') {
         game.handleInteraction(e.target);
     }
 });
 
- /**
-  * 'resetGameboard' function
-  * 
-  *   1. Selects the 'ul' element of the div with ID 'phrase' and removes everything inside it
-  *   2. Selects all elements with the classes "key" and "chosen". For each of these elements, removes the class "chosen" and sets the property "disabled" to false
-  *   3. Repeats the equivalent of the process in step 2 for all elements with the classes "key" and "wrong"
-  *   4. Sets the property "missed" of the game of object back to 0
-  *   5. Selects all 'li' elements corresponding to the heart pictures, selects the corresponding 'img' element and sets its source to the 'Live Heart' pic
-  *   6. Sets the class of the element with the 'overlay' ID back to "start", so that the code at 'gameOver' method is kept consistent
-  * 
-  * @returns
-  * 
-  */
-
-function resetGameboard() {
-    
-    const ul = document.getElementById("phrase").firstElementChild;
-    ul.innerHTML = "";
-    
-    const chosenKeys = qwerty.querySelectorAll(".key.chosen");
-    chosenKeys.forEach( key => {
-        key.disabled = false;
-        key.classList.remove("chosen");
-    });
-
-    const wrongKeys = qwerty.querySelectorAll(".key.wrong");
-    wrongKeys.forEach( key => {
-        key.disabled = false;
-        key.classList.remove("wrong");
-    });
-
-    game.missed = 0;
-
-    const allHeartElements = document.getElementById("scoreboard").getElementsByTagName("li");
-    for (const liElement of allHeartElements) {
-        const imgElement = liElement.firstElementChild;
-        imgElement.src = "images/liveHeart.png";
-    }
-    
-    document.getElementById("overlay").className = "start";
-
-    return;
-}
-
+ 
  /*********** For extra credit ***********/
 
  /**
@@ -99,8 +62,6 @@ function resetGameboard() {
   *     in case the game is not "active", i.e. the start screen overlay display property is not set to "none"
   * 
   */
-
-const allButtons = qwerty.getElementsByClassName("key");
 
 document.addEventListener('keydown', (e) => {
     
@@ -116,47 +77,45 @@ document.addEventListener('keydown', (e) => {
 
 /**
  * 
- * Making the project my own
+ * Making the project my own: Adding Multiplayer functionalities
  * 
  */
 
-// Multiplayer functionalities
+    // Adding a button to display the overlay for the multiplayer mode
+const multiplayerOverlayButton = document.createElement("button");
+multiplayerOverlayButton.id = "btn__multiplayer";
+multiplayerOverlayButton.innerText = "Multiplayer";
+multiplayerOverlayButton.style.width = "200px";
+multiplayerOverlayButton.style.margin = "10px auto 0px";
+overlay.appendChild(multiplayerOverlayButton);
 
-    // Adding a multiplayer button for the multiplayer mode
-const multiplayerButton = document.createElement("button");
-multiplayerButton.id = "btn__multiplayer";
-multiplayerButton.innerText = "Multiplayer";
-multiplayerButton.style.width = "200px";
-multiplayerButton.style.margin = "10px auto 0px";
-overlay.appendChild(multiplayerButton);
-
-    // Multiplayer's div
+    // Adding a Flexbox for the overlay of the multiplayer mode
 const divMultiplayer = document.createElement("div");
 divMultiplayer.className = "flex-container";
 divMultiplayer.style.display = "none";
 overlay.appendChild(divMultiplayer);
 
-    // h3 element for the instruction message for the Multiplayer mode
+    // Adding a 'h3' element for the instructions message of the multiplayer overlay
 const divMessage = document.createElement("h3");
 divMessage.innerText = "Player 1 is now playing...";
 divMessage.className = "flex-item";
 divMultiplayer.appendChild(divMessage);
 
-    // Label for the input box for Player 1
+    // Adding the label for the input box for Player 1
 const labelInputPlayer1 = document.createElement("label");
 labelInputPlayer1.htmlFor = "PhrasePlayer1";
 labelInputPlayer1.innerText = `Enter the phrase to be hunted below.\nCover the keyboard from Player 2.`;
 labelInputPlayer1.className = "flex-item";
 divMultiplayer.appendChild(labelInputPlayer1);
 
-    // Input box for Player 1
+    // Adding the input box for Player 1, so Player 1 can enter their phrase, which will then be hunted by Player 2
 const inputPlayer1 = document.createElement("input");
 inputPlayer1.className = "flex-item";
 inputPlayer1.type = "text";
 inputPlayer1.id = "PhrasePlayer1";
 divMultiplayer.appendChild(inputPlayer1);
 
-    // Adding one more button, to start multiplayer mode
+    // Adding one more button, in order to start the multiplayer mode
 const startMultiplayerButton = document.createElement("button");
 startMultiplayerButton.id = "btn__startMultiplayer";
 startMultiplayerButton.innerText = "Ready!";
@@ -164,32 +123,37 @@ startMultiplayerButton.style.width = "200px";
 startMultiplayerButton.style.margin = "10px auto 0px";
 divMultiplayer.appendChild(startMultiplayerButton);
 
-    // Event listener for both buttons
-multiplayerButton.addEventListener('click', () => {
+ /**
+  * Adding an Event Listener to the Multiplayer Overlay button
+  * In the callback function the multiplayer overlay div is toggled between visible and invisible and the design of the button is changed accordingly
+  * 
+  */
+
+multiplayerOverlayButton.addEventListener('click', () => {
     
     if (divMultiplayer.style.display === "none") {
         divMultiplayer.style.display = "inherit";
-        multiplayerButton.className = "clicked";
+        multiplayerOverlayButton.className = "clicked";
     } else {
         divMultiplayer.style.display = "none";
-        multiplayerButton.className = "";
+        multiplayerOverlayButton.className = "";
     } 
-})
+});
+
+ /**
+  * Adding an Event Listener to the Start Multiplayer Game button, analog to the Start (Single-Player) Game Button
+  * In the callback function:
+  *     1- The 'h3' element is changed to indicate the multiplayer mode
+  *     2- A short-circuit-evaluation of AND is used to call the function 'resetGameboard' if the property 'betweenGames' of the 'Game' object is 'true' 
+  *     3- Finally, calls the startMultiplayerGame() method
+  * 
+  */
 
 startMultiplayerButton.addEventListener('click', () => {
     
-    betweenGames && resetGameboard();
-       
     h3GameMode.innerText = "Multiplayer mode - Player 2 is playing";
-    overlay.style.display = "none";
-    game.activePhrase = new Phrase( inputPlayer1.value.replace(/[^a-zA-Z\s]/g, "") );
-    game.activePhrase.addPhraseToDisplay();
-
-    betweenGames = true;
-
-    divMultiplayer.style.display = "none";
-    multiplayerButton.className = "";
-    inputPlayer1.value = "";
+    game.betweenGames && game.resetGameboard();
+    game.startMultiplayerGame();
 });
  
 
