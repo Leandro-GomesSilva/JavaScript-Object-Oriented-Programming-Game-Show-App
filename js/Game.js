@@ -71,7 +71,7 @@ class Game {
     *       a. True
     *           I - adds the class 'chosen' to the button element
     *           II - calls the "showMatchedLetter" method
-    *           III - uses a short-circuit-evaluation of AND to call the method 'gameOver' with 'true' as parameter, in case the 'checkForWin' method returns TRUE
+    *           III - uses a short-circuit-evaluation of AND to call the method 'gameOver' with 'true' as argument, in case the 'checkForWin' method returns TRUE
     *       b. False
     *           I - adds the class 'wrong' to the button element
     *           II - calls the 'removeLife' method
@@ -105,7 +105,7 @@ class Game {
     *       a. Selects all 'li' elements under the 'div' with ID 'scoreboard'
     *       b. Selects the last 'img' element that is still a full heart
     *       c. Modifies the 'source' property of this 'img' element
-    *   3. Uses a short-circuit-evaluation of AND to call the method 'gameOver' with 'false' as parameter, in case the number of 'li' elements (i.e. hearts) is equal to the number of misses
+    *   3. Uses a short-circuit-evaluation of AND to call the method 'gameOver' with 'false' as argument, in case the number of 'li' elements (i.e. hearts) is equal to the number of misses
     * 
     */
     removeLife() {
@@ -208,8 +208,8 @@ class Game {
     * 
     *   1. Sets the 'betweenGames' property to 'true'
     *   2. Hides the overlay that covers the game ('overlay' is a global variable)
-    *   3. Creates a new instance of the Phrase object passing the string (value) of the input box (global variable) as parameter
-    *       a. The method 'replace' is applied to the string value. It passes as parameter a regex that excludes everything, except letters and spaces, from the input string
+    *   3. Creates a new instance of the Phrase object passing the string (value) of the input box (global variable) as argument
+    *       a. The method 'replace' is applied to the string value. It passes as argument a regex that excludes everything, except letters and spaces, from the input string
     *   4. Displays the phrase of the Player 1 in the screen using the addPhraseToDisplay method
     *   5. Clears the input field element, hides the multiplayer and resets the state of the Multiplayer button (all these variables are global variables declared at app.js)
     * 

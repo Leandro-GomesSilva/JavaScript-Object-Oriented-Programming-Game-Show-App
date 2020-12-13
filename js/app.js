@@ -15,6 +15,8 @@
 
 const game = new Game();
 
+ // The h3 element below is used "to make the project my own" - more informations on the README.md file
+
 const h3GameMode = document.createElement("h3");
 document.getElementById("banner").appendChild(h3GameMode);
 
@@ -56,7 +58,7 @@ qwerty.addEventListener('click', (e) => {
   *     1. Select all qwerty button elements
   *     2. Adds an event listener that listens for a 'keydown' event
   *     3. Loops through all qwerty button elements => compares its inner text to the pressed button on the physical keyboard and checks if the button element is NOT disabled
-  *     4. For the matching button (in case it is NOT disabled), calls the 'handleInteraction' method passing the corresponding HTML button element as parameter
+  *     4. For the matching button (in case it is NOT disabled), calls the 'handleInteraction' method passing the corresponding HTML button element as argument
   * 
   *     The steps 3 and 4 are surrounded by an 'if' statement that prevents these code lines from running,
   *     in case the game is not "active", i.e. the start screen overlay display property is not set to "none"
