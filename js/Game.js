@@ -8,7 +8,6 @@ class Game {
         this.missed = 0;
         this.phrases = this.createPhrases();
         this.activePhrase = null;
-        this.betweenGames = false;          // Extra property to handle the transition between games
     }
 
     /**
@@ -49,7 +48,7 @@ class Game {
     /**
     * 'startGame' method
     * 
-    *   1. Sets the 'betweenGames' property to 'true'
+    *   1. Sets the global variable 'betweenGames' to 'true'
     *   2. Hides the overlay that covers the game ('overlay' is a global variable)
     *   3. Selects a random phrase using the getRandomPhrase method and stores it in the property activePhrase
     *   4. Display the random phrase in the screen using the addPhraseToDisplay method
@@ -57,7 +56,7 @@ class Game {
     */
     startGame() {
         
-        this.betweenGames = true;
+        betweenGames = true;
         overlay.style.display = "none";
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
@@ -206,17 +205,17 @@ class Game {
     /**
     * 'startMultiplayerGame' method
     * 
-    *   1. Sets the 'betweenGames' property to 'true'
+    *   1. Sets the global variable 'betweenGames' to 'true'
     *   2. Hides the overlay that covers the game ('overlay' is a global variable)
     *   3. Creates a new instance of the Phrase object passing the string (value) of the input box (global variable) as argument
     *       a. The method 'replace' is applied to the string value. It passes as argument a regex that excludes everything, except letters and spaces, from the input string
     *   4. Displays the phrase of the Player 1 in the screen using the addPhraseToDisplay method
-    *   5. Clears the input field element, hides the multiplayer and resets the state of the Multiplayer button (all these variables are global variables declared at app.js)
+    *   5. Clears the input field element, hides the multiplayer overlay and resets the state of the Multiplayer button (all these variables are global variables declared at app.js)
     * 
     */
     startMultiplayerGame() {
         
-        this.betweenGames = true;
+        betweenGames = true;
         
         overlay.style.display = "none";
 

@@ -9,11 +9,12 @@
  const qwerty = document.getElementById("qwerty");          // Div element for the Virtual keyboard
  const allButtons = qwerty.getElementsByClassName("key");   // Live HTML Colection of all 'keys' of the Virtual Keyboard
  const overlay = document.getElementById("overlay");        // Div element for the start overlay
+ let betweenGames = false;                                  // Extra variable that handles the transition between games
 
  
- // Creating a new game object via the Game class
+ // Creating a new variable game and setting it to an empty object
 
-const game = new Game();
+let game = {};
 
  // The h3 element below is used "to make the project my own" - more informations on the README.md file
 
@@ -24,16 +25,18 @@ document.getElementById("banner").appendChild(h3GameMode);
  /**
   * Adding an Event Listener to the Start Game button. 
   * In the callback function:
-  *     1- The 'h3' element is changed to indicate the single-player mode
-  *     2- A short-circuit-evaluation of AND is used to call the function 'resetGameboard' if the property 'betweenGames' of the 'Game' object is 'true' 
-  *     3- Finally, calls the startGame() method
+  *     1- Instantiates a new Game object via the Game class using the 'game' variable
+  *     2- The 'h3' element is changed to indicate the single-player mode
+  *     3- A short-circuit-evaluation of AND is used to call the method 'resetGameboard' if the global variable 'betweenGames' is 'true' 
+  *     4- Finally, calls the startGame() method
   * 
   */
 
 button.addEventListener('click', () => {
     
+    game = new Game();
     h3GameMode.innerText = "Single-player mode";
-    game.betweenGames && game.resetGameboard();
+    betweenGames && game.resetGameboard();
     game.startGame();
 }); 
 
@@ -145,16 +148,18 @@ multiplayerOverlayButton.addEventListener('click', () => {
  /**
   * Adding an Event Listener to the Start Multiplayer Game button, analog to the Start (Single-Player) Game Button
   * In the callback function:
-  *     1- The 'h3' element is changed to indicate the multiplayer mode
-  *     2- A short-circuit-evaluation of AND is used to call the function 'resetGameboard' if the property 'betweenGames' of the 'Game' object is 'true' 
-  *     3- Finally, calls the startMultiplayerGame() method
+  *     1- Instantiates a new Game object via the Game class using the 'game' variable 
+  *     2- The 'h3' element is changed to indicate the multiplayer mode
+  *     3- A short-circuit-evaluation of AND is used to call the method 'resetGameboard' if the global variable 'betweenGames' is 'true' 
+  *     4- Finally, calls the startMultiplayerGame() method
   * 
   */
 
 startMultiplayerButton.addEventListener('click', () => {
     
+    game = new Game();
     h3GameMode.innerText = "Multiplayer mode - Player 2 is playing";
-    game.betweenGames && game.resetGameboard();
+    betweenGames && game.resetGameboard();
     game.startMultiplayerGame();
 });
  
