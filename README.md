@@ -4,15 +4,15 @@
 This game is a Phrase Hunter game: the player has a limited number of tries to guess a random phrase that is displayed on the screen. 
 The player can input their guesses via a virtual keyboard that is displayed on the screen or via the physical keyboard.
 
-This project uses Object Oriented Programming. For this, the following Classes have been create, which have the following properties:
+This project uses Object Oriented Programming. For this, the following Classes have been create, which have the following properties and methods:
 
 1. Game Class
-    a. Properties: missed, phrases, activePhrase, betweenGames
-    b. Methods: createPhrases, getRandomPhrase, startGame, handleInteraction, removeLife, checkForWin, gameOver, resetGameboard, startMultiplayerGame
+    a. Properties: missed, phrases, activePhrase
+    b. Methods: createPhrases(), getRandomPhrase(), startGame(), handleInteraction(), removeLife(), checkForWin(), gameOver(), resetGameboard(), startMultiplayerGame()
 
 2. Phrase Class
     a. Properties: phrase
-    b. Methods: addPhraseToDisplay, checkLetter, showMatchedLetter
+    b. Methods: addPhraseToDisplay(), checkLetter(), showMatchedLetter()
 
 For Exceeding Expectations:
 
