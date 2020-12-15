@@ -48,16 +48,15 @@ class Game {
     /**
     * 'startGame' method
     * 
-    *   1. Sets the global variable 'betweenGames' to 'true'
-    *   2. Hides the overlay that covers the game ('overlay' is a global variable)
-    *   3. Selects a random phrase using the getRandomPhrase method and stores it in the property activePhrase
-    *   4. Display the random phrase in the screen using the addPhraseToDisplay method
+    *   1. Hides the overlay that covers the game and sets its class to "start", so that the code at 'gameOver' method is kept consistent ('overlay' is a global variable)
+    *   2. Selects a random phrase using the getRandomPhrase method and stores it in the property activePhrase
+    *   3. Display the random phrase in the screen using the addPhraseToDisplay method
     * 
     */
     startGame() {
         
-        betweenGames = true;
         overlay.style.display = "none";
+        overlay.className = "start";
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
     }
@@ -143,6 +142,7 @@ class Game {
     *   2. Tests if the game has been won or lost:
     *       a. Selects the 'h1' element with the ID 'game-over-message' and changes its text accordingly to the game's outcome
     *       b. Changes the class of the 'div' element 'overlay' accordingly to the game's outcome
+    *   3. Resets the Gameboard
     * 
     * @param {boolean} gameWon - Boolean value representing if the game has been won or lost (true for won)
     * 
@@ -161,6 +161,8 @@ class Game {
             overlay.classList.add("lose");
             overlay.classList.remove("start");
         }        
+
+        this.resetGameboard();
     }
 
     /**
@@ -171,7 +173,6 @@ class Game {
     *   3. Repeats the equivalent of the process in step 2 for all elements with the classes "key" and "wrong"
     *   4. Sets the property "missed" of the game of object back to 0
     *   5. Selects all 'li' elements corresponding to the heart pictures, selects the corresponding 'img' element and sets its source to the 'Live Heart' pic
-    *   6. Sets the class of the 'div' element 'overlay' to "start", so that the code at 'gameOver' method is kept consistent ('overlay' is a global variable)
     * 
     */
     resetGameboard() {
@@ -198,26 +199,22 @@ class Game {
             const imgElement = liElement.firstElementChild;
             imgElement.src = "images/liveHeart.png";
         }
-        
-        overlay.className = "start";
     }
 
     /**
     * 'startMultiplayerGame' method
     * 
-    *   1. Sets the global variable 'betweenGames' to 'true'
-    *   2. Hides the overlay that covers the game ('overlay' is a global variable)
-    *   3. Creates a new instance of the Phrase object passing the string (value) of the input box (global variable) as argument
+    *   1. Hides the overlay that covers the game and sets its class to "start", so that the code at 'gameOver' method is kept consistent ('overlay' is a global variable)
+    *   2. Creates a new instance of the Phrase object passing the string (value) of the input box (global variable) as argument
     *       a. The method 'replace' is applied to the string value. It passes as argument a regex that excludes everything, except letters and spaces, from the input string
-    *   4. Displays the phrase of the Player 1 in the screen using the addPhraseToDisplay method
-    *   5. Clears the input field element, hides the multiplayer overlay and resets the state of the Multiplayer button (all these variables are global variables declared at app.js)
+    *   3. Displays the phrase of the Player 1 in the screen using the addPhraseToDisplay method
+    *   4. Clears the input field element, hides the multiplayer overlay and resets the state of the Multiplayer button (all these variables are global variables declared at app.js)
     * 
     */
     startMultiplayerGame() {
         
-        betweenGames = true;
-        
         overlay.style.display = "none";
+        overlay.className = "start";
 
         this.activePhrase = new Phrase( inputPlayer1.value.replace(/[^a-zA-Z\s]/g, "") );
         

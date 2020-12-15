@@ -9,8 +9,7 @@
  const qwerty = document.getElementById("qwerty");          // Div element for the Virtual keyboard
  const allButtons = qwerty.getElementsByClassName("key");   // Live HTML Colection of all 'keys' of the Virtual Keyboard
  const overlay = document.getElementById("overlay");        // Div element for the start overlay
- let betweenGames = false;                                  // Extra variable that handles the transition between games
-
+ 
  
  // Creating a new variable game and setting it to an empty object
 
@@ -27,8 +26,7 @@ document.getElementById("banner").appendChild(h3GameMode);
   * In the callback function:
   *     1- Instantiates a new Game object via the Game class using the 'game' variable
   *     2- The 'h3' element is changed to indicate the single-player mode
-  *     3- A short-circuit-evaluation of AND is used to call the method 'resetGameboard' if the global variable 'betweenGames' is 'true' 
-  *     4- Finally, calls the startGame() method
+  *     3- Finally, calls the startGame() method
   * 
   */
 
@@ -36,7 +34,6 @@ button.addEventListener('click', () => {
     
     game = new Game();
     h3GameMode.innerText = "Single-player mode";
-    betweenGames && game.resetGameboard();
     game.startGame();
 }); 
 
@@ -150,8 +147,7 @@ multiplayerOverlayButton.addEventListener('click', () => {
   * In the callback function:
   *     1- Instantiates a new Game object via the Game class using the 'game' variable 
   *     2- The 'h3' element is changed to indicate the multiplayer mode
-  *     3- A short-circuit-evaluation of AND is used to call the method 'resetGameboard' if the global variable 'betweenGames' is 'true' 
-  *     4- Finally, calls the startMultiplayerGame() method
+  *     3- Finally, calls the startMultiplayerGame() method
   * 
   */
 
@@ -159,7 +155,6 @@ startMultiplayerButton.addEventListener('click', () => {
     
     game = new Game();
     h3GameMode.innerText = "Multiplayer mode - Player 2 is playing";
-    betweenGames && game.resetGameboard();
     game.startMultiplayerGame();
 });
  
