@@ -1,4 +1,4 @@
-# JavaScript - Object-Oriented Programming Game-Show-App
+# JavaScript: Object-Oriented Programming Game-Show-App
  The 4th project on the Full Stack JavaScript Techdegree. This web application is a browser-based game, where JavaScript and OOP (Object-Oriented Programming) were used. The player has a limited number of tries to guess a random phrase that is displayed on the screen. They can input their guesses via a virtual keyboard that is displayed on the screen or via the physical keyboard. Finally, the web application also provides a 'local multiplayer functionality', where one player inserts the sentence and the other tries to guess it.
 
  Main technologies: JavaScript<br>
