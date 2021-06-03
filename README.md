@@ -1,8 +1,10 @@
-# JavaScript: Object-Oriented Programming Game-Show-App
- My 4th project on the Full Stack JavaScript Techdegree: OOP Game Show App. A browser-based game, where JavaScript and OOP (Object-Oriented Programming) were used.
+# JavaScript - Object-Oriented Programming Game-Show-App
+ The 4th project on the Full Stack JavaScript Techdegree. This web application is a browser-based game, where JavaScript and OOP (Object-Oriented Programming) were used. The player has a limited number of tries to guess a random phrase that is displayed on the screen. They can input their guesses via a virtual keyboard that is displayed on the screen or via the physical keyboard. Finally, the web application also provides a 'local multiplayer functionality', where one player inserts the sentence and the other tries to guess it.
 
-This game is a Phrase Hunter game: the player has a limited number of tries to guess a random phrase that is displayed on the screen. 
-The player can input their guesses via a virtual keyboard that is displayed on the screen or via the physical keyboard.
+ Main technologies: JavaScript<br>
+ Auxiliary technologies: HTML, CSS<br>
+ Complexity level: Intermediate<br>
+ Concepts: Object-Oriented Programming, Classes, Event Object, Event listeners, DOM manipulation<br>
 
 This project uses Object Oriented Programming. For this, the following Classes have been create, which have the following properties and methods:
 
