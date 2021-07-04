@@ -9,7 +9,7 @@
 
 ## For "Exceeds Requirements":
   - Keyboard functionality for 'keydown' events
-  - Custom CSS layout and documentation of these changes:
+  - Custom CSS layout and documentation of these changes in the README.md file:
     - Changing color for the CSS variables 'color-win' and 'color-lose' as well for the class '.lose'
     - Rule for selector 'h3' (for custom sentences that are thrown on the screen)
     - Rules for the multiplayer container using Flexbox
